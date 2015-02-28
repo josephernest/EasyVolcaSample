@@ -103,7 +103,7 @@ static uint8_t *read_file(char *filename, uint32_t *psize)
 	
 	fp = fopen((const char *)filename, "rb");
 	if (!fp) {
-		printf (" File open error, %s \n", filename);
+		printf ("File not found: %s \n", filename);
 		return NULL;
 	}
 	
@@ -113,13 +113,13 @@ static uint8_t *read_file(char *filename, uint32_t *psize)
 	
 	buf = malloc(size);
 	if (!buf) {
-		printf (" Not enough memory for read file.\n");
+		printf ("Not enough memory for read file.\n");
 		fclose(fp);
 		return NULL;
 	}
 	
 	if (fread(buf, 1, size, fp) < size) {
-		printf (" File read error, %s \n", filename);
+		printf ("File read error, %s \n", filename);
 		fclose(fp);
 		free(buf);
 		return NULL;
@@ -140,12 +140,12 @@ static bool write_file(char *filename, uint8_t *buf, uint32_t size)
 	
 	fp = fopen(filename, "wb");
 	if (!fp) {
-		printf (" File open error, %s \n", filename);
+		printf ("File open error, %s \n", filename);
 		return false;
 	}
 	
 	if (fwrite(buf, 1, size, fp) < size) {
-		printf (" File write error(perhaps disk space is not enough), %s \n", filename);
+		printf ("File write error(perhaps disk space is not enough), %s \n", filename);
 		fclose(fp);
 		return false;
 	}
@@ -381,20 +381,20 @@ static int main2(int argc, char **argv)
 		sprintf(filen, "%03d.wav", i);
         if (!setup_file_sample(filen, syro_data_ptr))  { continue; }
 		syro_data_ptr->DataType = DataType_Sample_Liner;
-		syro_data_ptr->Number = i+1;
+		syro_data_ptr->Number = i;
 		syro_data_ptr++;
 		num_of_data++;
 	}
 
 	if (!num_of_data) {
-		printf ("File not found. \n");
+		printf ("No file to upload. \n");
 		return 1;
 	}
 	
 	//----- Start ------
 	status = SyroVolcaSample_Start(&handle, syro_data, num_of_data, 0, &frame);
 	if (status != Status_Success) {
-		printf (" Start error, %d \n", status);
+		printf ("Start error, %d \n", status);
 		free_syrodata(syro_data, num_of_data);
 		return 1;
 	}
@@ -403,7 +403,7 @@ static int main2(int argc, char **argv)
 	
 	buf_dest = malloc(size_dest);
 	if (!buf_dest) {
-		printf (" Not enough memory for write file.\n");
+		printf ("Not enough memory for write file.\n");
 		SyroVolcaSample_End(handle);
 		free_syrodata(syro_data, num_of_data);
 		return 1;
@@ -429,7 +429,7 @@ static int main2(int argc, char **argv)
 	//----- write ------
 	
 	if (write_file("out.wav", buf_dest, size_dest)) {
-		printf (" Complete to convert.\n");
+		printf ("Complete to convert.\n");
 	}
 	free(buf_dest);
 	
