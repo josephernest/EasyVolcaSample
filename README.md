@@ -3,7 +3,7 @@ EasyVolcaSample
 
 EasyVolcaSample is a lightweight tool that allows to easily upload .wav files to the Korg Volca Sample.
 
-To use this tool, *the only file you need* is `EasyVolcaSample.exe`.
+To use this tool, *the only file you need* is [EasyVolcaSample.exe](http://josephernest.github.io/EasyVolcaSample/EasyVolcaSample.exe).
 
 How to use it?
 ----
@@ -11,7 +11,7 @@ How to use it?
 1. Put all the .wav files you want to upload in a single folder, and rename them like this : 001.wav, 002.wav, ..., 099.wav.
 (Note: you can upload only a few files, you don't need to have 100 files to upload)
 
-2. Run `EasyVolcaSample.exe` in the same folder
+2. Run [EasyVolcaSample.exe](http://josephernest.github.io/EasyVolcaSample/EasyVolcaSample.exe) in the same folder
 
 3. Play the generated `out.wav` file like this:  
 
