@@ -21,6 +21,7 @@
 #include <stdio.h>
 #include "korg_syro_volcasample.h"
 #include "korg_syro_comp.h"
+#include "dirent.h"
 
 static const uint8_t wav_header[] = {
 	'R' , 'I' , 'F',  'F',		// 'RIFF'
@@ -372,19 +373,30 @@ static int main2(int argc, char **argv)
 	uint32_t frame, write_pos;
 	int16_t left, right;
 
-	//----- Loop on all .wav files in the current folder : "000.wav, 001.wav, 002.wav"
+	//----- Loop on all .wav files in the current folder beginning with a number : "000 my sample.wav", "001Snare.wav", ..., "098Kick.wav"
 	int num_of_data = 0;
 	int i;
 
-	for (i=0; i<100; i++) {
-		char filen[10];
-		sprintf(filen, "%03d.wav", i);
-        if (!setup_file_sample(filen, syro_data_ptr))  { continue; }
-		syro_data_ptr->DataType = DataType_Sample_Liner;
-		syro_data_ptr->Number = i;
-		syro_data_ptr++;
-		num_of_data++;
-	}
+	DIR *dir;
+    struct dirent *ent;
+    if ((dir = opendir (".")) != NULL) 
+    {
+        while ((ent = readdir (dir)) != NULL) 
+        {
+            if (sscanf(ent->d_name, "%d%*.wav", &i) == 1)
+            {
+                if ((i >= 0) && (i < 100))
+                {
+			        if (!setup_file_sample(ent->d_name, syro_data_ptr))  { continue; }
+					syro_data_ptr->DataType = DataType_Sample_Liner;
+					syro_data_ptr->Number = i;
+					syro_data_ptr++;
+					num_of_data++;
+                }
+            }
+        }
+        closedir (dir);
+    } else { return 1; }
 
 	if (!num_of_data) {
 		printf ("No file to upload. \n");

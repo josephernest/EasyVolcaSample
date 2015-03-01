@@ -8,16 +8,16 @@ To use this tool, *the only file you need* is [EasyVolcaSample.exe](http://josep
 How to use it?
 ----
 
-1. Put all the .wav files you want to upload in a single folder, and rename them like this : 001.wav, 002.wav, ..., 099.wav.
-(Note: you can upload only a few files, you don't need to have 100 files to upload)
+1. Put all the .wav files you want to upload in a single folder, and rename them like this : 001 Blah.wav, 002 MySnare.wav, ..., 099Noise.wav.
+The only condition is that the filename must begin with a number (which will be the *sample number* on the Korg Volca Sample). Note that you can upload only a few files, you don't need to have 100 files to upload.
 
 2. Run [EasyVolcaSample.exe](http://josephernest.github.io/EasyVolcaSample/EasyVolcaSample.exe) in the same folder
 
 3. Play the generated `out.wav` file like this:  
 
-    Computer speaker/line out <--- mini-jack-cable ---> Korg Volca Sample Sync IN
+    `Computer speaker/line out <--- mini-jack-cable ---> Korg Volca Sample Sync IN`
 
-4. Wait a few seconds / minutes, it's done!
+4. Wait a few seconds or minutes, it's done!
 
 About
 ----
