@@ -21,7 +21,12 @@
 #include <stdio.h>
 #include "korg_syro_volcasample.h"
 #include "korg_syro_comp.h"
+#ifdef _WIN32
 #include "dirent.h"
+#else
+#include <dirent.h>
+#endif
+
 
 static const uint8_t wav_header[] = {
 	'R' , 'I' , 'F',  'F',		// 'RIFF'
